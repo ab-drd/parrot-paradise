@@ -120,6 +120,11 @@
             session_start();
             $_SESSION["userid"] = $usernameExists["id"];
             $_SESSION["username"] = $usernameExists["username"];
+
+            $cookie_name = "user_id";
+            $cookie_value = $usernameExists['id'];
+            setcookie($cookie_name, $cookie_value, time() + 14400, "/");
+
             header("location: ../../game.php");
             exit();
         }

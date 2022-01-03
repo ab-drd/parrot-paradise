@@ -14,13 +14,13 @@
                 <h1 class="form-title">Create Account</h1>
                 <div class="form__message-form__message--error"></div>
                 <div class="form-input-grp">
-                    <input type="text" id="signupUsername" class="form-input" name="username" autofocus placeholder="Username">
+                    <input type="text" id="signupUsername" class="form-input" name="username" autofocus placeholder="Username" required>
                 </div>
                 <div class="form-input-grp">
-                    <input type="password" class="form-input" name="password" autofocus placeholder="Password">
+                    <input type="password" class="form-input" name="password" autofocus placeholder="Password" required>
                 </div>
                 <div class="form-input-grp">
-                    <input type="password" class="form-input" name="passwordrepeat" autofocus placeholder="Confirm Password">
+                    <input type="password" class="form-input" name="passwordrepeat" autofocus placeholder="Confirm Password" required>
                 </div>
                 <input class="form-btn" type="submit" name="create" value="Sign up">
                 <?php
