@@ -10,7 +10,7 @@ const multipliers = [1.2, 1.3, 1.32, 1.38, 1.45, 1.5];
 let parrot_count = document.getElementsByClassName("parrot-count");
 let current_price = document.getElementsByClassName("current-price");
 
-let resource_btns = document.getElementsByClassName("resource-btns");
+let resource_btns = document.getElementsByClassName("buy-btns");
 let seed_btn = document.getElementById("seed-btn");
 let seed_counter = document.getElementById("seed-counter");
 init();

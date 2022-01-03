@@ -6,9 +6,9 @@
         <link rel="stylesheet" href="./styles/main.css">
         <title>Parrot Paradise</title>
     </head>
-    <?php require_once "./src/header.html" ?>
+    <?php require_once "./src/header.php" ?>
     <body>
-        <div class="drg-cont" id="game-screen">
+        <div class="drg-cont game-screen">
             <div class="left-side">
                 <div class="main-clickable">
                     <button id="seed-btn">Get seeds!</button>
@@ -22,7 +22,7 @@
                         <div class="parrot-name">
                             Budgie
                         </div>
-                        <button class="resource-btns">Buy</button>
+                        <button class="buy-btns">Buy</button>
                         <div class="info">
                             <div>Cost: </div>
                             <div class="current-price"></div>
@@ -31,14 +31,13 @@
                             <div>Amount: </div>
                             <div class="parrot-count"></div>
                         </div>
-                        
-                        <img class="parrot-imgs" src="./src/images/parrot1.png">
+                        <img class="parrot-imgs" src="./src/images/budgie.png">
                     </li>
                     <li class="disabled hidden no-seed" id="cockatiel">
                         <div class="parrot-name">
                             Cockatiel
                         </div>
-                        <button class="resource-btns">Buy</button>
+                        <button class="buy-btns">Buy</button>
                         <div class="info">
                             <div>Cost: </div>
                             <div class="current-price"></div>
@@ -47,14 +46,13 @@
                             <div>Amount: </div>
                             <div class="parrot-count"></div>
                         </div>
-                        
                         <img class="parrot-imgs" src="./src/images/parrot1.png">
                     </li>
                     <li class="disabled hidden no-seed" id="indian_ringneck">
                         <div class="parrot-name">
                             Indian Ringneck
                         </div>
-                        <button class="resource-btns">Buy</button>
+                        <button class="buy-btns">Buy</button>
                         <div class="info">
                             <div>Cost: </div>
                             <div class="current-price"></div>
@@ -63,14 +61,13 @@
                             <div>Amount: </div>
                             <div class="parrot-count"></div>
                         </div>
-                        
                         <img class="parrot-imgs" src="./src/images/parrot1.png">
                     </li>
                     <li class="disabled hidden no-seed" id="conure">
                         <div class="parrot-name">
                             Conure
                         </div>
-                        <button class="resource-btns">Buy</button>
+                        <button class="buy-btns">Buy</button>
                         <div class="info">
                             <div>Cost: </div>
                             <div class="current-price"></div>
@@ -79,14 +76,13 @@
                             <div>Amount: </div>
                             <div class="parrot-count"></div>
                         </div>
-                        
                         <img class="parrot-imgs" src="./src/images/parrot1.png">
                     </li>
                     <li class="disabled hidden no-seed" id="cockatoo">
                         <div class="parrot-name">
                             Cockatoo
                         </div>
-                        <button class="resource-btns">Buy</button>
+                        <button class="buy-btns">Buy</button>
                         <div class="info">
                             <div>Cost: </div>
                             <div class="current-price"></div>
@@ -95,14 +91,13 @@
                             <div>Amount: </div>
                             <div class="parrot-count"></div>
                         </div>
-                        
                         <img class="parrot-imgs" src="./src/images/parrot1.png">
                     </li>
                     <li class="disabled hidden no-seed" id="macaw">
                         <div class="parrot-name">
                             Macaw
                         </div>
-                        <button class="resource-btns">Buy</button>
+                        <button class="buy-btns">Buy</button>
                         <div class="info">
                             <div>Cost: </div>
                             <div class="current-price"></div>
@@ -111,7 +106,6 @@
                             <div>Amount: </div>
                             <div class="parrot-count"></div>
                         </div>
-                        
                         <img class="parrot-imgs" src="./src/images/parrot1.png">
                     </li>
                 </ul>
@@ -120,6 +114,5 @@
             
         </div>
     </body>
-    <?php require_once "./src/footer.html" ?>
     <script src="scripts/game.js"></script>
 </html>

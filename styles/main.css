@@ -13,7 +13,7 @@ html, body {
 
 body {
     color: #fff;
-    background: rgb(22, 22, 22)
+    background: rgb(22, 22, 22);
 }
 
 button {
@@ -40,7 +40,7 @@ button {
 .left-side {
     position: sticky;
     top: 70px;
-    height: 100vh;
+    height: 99vh;
     width: 49.8%;
     left: 0;
 }
@@ -71,16 +71,16 @@ a, a.visited {
 }
 
 .left-side {
-    background-image: url('../src/images/amazon.jpg');
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
+    background-image: url('../src/images/jungle.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#game-screen {
+.game-screen {
     margin-top: 70px;
     height: fit-content;
 }
@@ -88,7 +88,6 @@ a, a.visited {
 .resource-items {
     margin-top: 0px;
     flex-flow: column wrap;
-    overflow: hidden;
     padding-left: 0px;
     padding-bottom: 0px;
     margin-bottom: 0px;
@@ -99,7 +98,8 @@ a, a.visited {
     flex-direction: row;
     align-items: center;
     border-bottom: 2px solid rgb(255, 145, 0);
-    background-color: rgb(53, 53, 53);
+    background: rgb(18,18,18);
+    background: linear-gradient(0deg, rgba(18,18,18,1) 0%, rgb(47, 44, 42) 41%, rgb(65, 57, 45) 100%);
     list-style: none;
     width: 100%;
     min-width: auto;
@@ -108,40 +108,45 @@ a, a.visited {
 
 .info {
     margin: auto;
+    padding: 10px 0 0 10px;
 }
 
 .parrot-name {
-    width: 5em;
+    width: 12vw;
+    font-size: 2vw;
+    padding: 15px 0 0 15px;
     text-align: center;
     margin: auto;
 }
 
-.resource-count {
-    font-size: 4em;
+@media screen and (max-width: 1160px){
+    .parrot-name {
+        font-size: 1.5vw;
+    }
 }
 
-.resource-btns {
+.buy-btns {
     text-align: center;
     height: 100px;
     font-size: 28px;
     width: 35%;
     display: block;
     z-index: 1;
-    background-color: rgb(71, 71, 71);
+    background-color: rgba(71, 71, 71, 0.4);
     color: gray;
 }
 
-.resource-btns {
+.buy-btns {
   transition: box-shadow 300ms ease-out, color 300ms ease-in-out, border 300ms ease-in-out;
 }
 
-.resource-btns:hover {
-    box-shadow: 0 0 90px 90px rgb(255, 217, 0) inset;
+.buy-btns:hover {
+    box-shadow: 0 0 90px 90px rgba(255, 208, 0, 0.9) inset;
     border: 1px solid rgb(190, 91, 10);
     color: rgb(85, 31, 0);
 }
 
-.resource-btns:active {
+.buy-btns:active {
     transform: scale(0.98);
 }
 
@@ -189,4 +194,8 @@ a, a.visited {
 .hidden {
     visibility: hidden;
     display: none;
+}
+
+@media screen and (max-width: 600px){
+    
 }
