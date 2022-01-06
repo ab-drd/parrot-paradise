@@ -23,9 +23,10 @@ for (let i = 0; i < resource_btns.length; i++) {
 }
 
 function init() {
-    let cookie_value = getCookie("user_id");
+    let cookie_value = false//getCookie("user_id");
     if (cookie_value) {
         fetchSaveData(cookie_value);
+        // autosave(cookie_value);
     }
     else {
         seed_counter.textContent = 0;
@@ -118,6 +119,42 @@ function getCookie(cname) {
     return false;
 }
 
+let save_btn = document.getElementsByClassName("save-btn")[0];
+save_btn.addEventListener("click", autosave);
+
+function autosave() {
+    let uid = getCookie("user_id");
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+
+        }
+    }
+
+    let parameters = `uid=${uid}&seeds=${seed_counter.textContent}&`;
+    
+    for (let i = 0; i < parrot_count.length; i++) {
+        let count = parrot_count[i].textContent;
+        parameters += `parrot_${i}=${count}&`;
+    }
+
+    for (let i = 0; i < setPrice.length; i++) {
+        let price = setPrice[i];
+        parameters += `parrot_p_${i}=${price}&`;
+    }
+
+    xmlhttp.open("GET", "./src/autosave.php?" + parameters, true);
+    xmlhttp.send();
+}
+
+let load_btn = document.getElementsByClassName("load-btn")[0];
+save_btn.addEventListener("click", loadsave);
+
+function loadsave() {
+
+}
+
 function fetchSaveData(user_id) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -130,15 +167,15 @@ function fetchSaveData(user_id) {
                 data = "";
             }
             finally {
-                rednerSaveData(data);
+                renderSaveData(data);
             }
         }
     }
 
-    xmlhttp.open("GET", "./src/requestHandler.php?uid=" + user_id, true);
+    xmlhttp.open("GET", "./src/loadsave.php?uid" + user_id, true);
     xmlhttp.send();
 }
 
-function rednerSaveData(data) {
+function renderSaveData(data) {
 
 }

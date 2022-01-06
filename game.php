@@ -13,6 +13,10 @@
                 <div class="main-clickable">
                     <button id="seed-btn">Get seeds!</button>
                     <div id="seed-counter"></div>
+                    <button class="save-btn">SAVE</button>
+                    <div class="save-msg"></div>
+                    <button class="load-btn">LOAD</button>
+                    <div class="load-msg"></div>
                 </div>
             </div>
             <div class="separator"></div>
