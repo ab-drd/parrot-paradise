@@ -50,7 +50,7 @@
                     }
                 ?>
                 <p class="form-text">
-                    <a lass="form-link" href="./login.php" id="linkLogin">Already have an account? Sign in.</a>
+                    <a lass="form-link" href="./login.php" id="linkLogin">Already have an account? Log in.</a>
                 </p>
             </form>
         </div>

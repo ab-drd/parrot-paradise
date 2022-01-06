@@ -3,9 +3,9 @@ const parrots = [document.getElementById('budgie'),
               document.getElementById('conure'), document.getElementById('cockatoo'),
               document.getElementById('macaw')];
 const setYield = [1, 2, 3, 5, 10, 20];
-// let setPrice = [10, 50, 200, 1000, 10000, 50000];
-let setPrice = [1, 2, 3, 4, 5, 6];
+let setPrice = [10, 50, 200, 1000, 10000, 50000];
 const multipliers = [1.2, 1.3, 1.32, 1.38, 1.45, 1.5];
+const timers = [1000, 1500, 2000, 3000, 5000, 5000];
 
 let parrot_count = document.getElementsByClassName("parrot-count");
 let current_price = document.getElementsByClassName("current-price");
@@ -14,8 +14,6 @@ let resource_btns = document.getElementsByClassName("buy-btns");
 let seed_btn = document.getElementById("seed-btn");
 let seed_counter = document.getElementById("seed-counter");
 
-init();
-
 let seedCounter = 0;
 seed_btn.addEventListener("click", increaseResource);
 for (let i = 0; i < resource_btns.length; i++) {
@@ -23,19 +21,20 @@ for (let i = 0; i < resource_btns.length; i++) {
 }
 
 function init() {
-    let cookie_value = false//getCookie("user_id");
-    if (cookie_value) {
-        fetchSaveData(cookie_value);
-        // autosave(cookie_value);
+    seed_counter.textContent = 0;
+    for (let i = 0; i < parrot_count.length; i++) {
+        parrot_count[i].textContent = 0;
     }
-    else {
-        seed_counter.textContent = 0;
-        for (let i = 0; i < parrot_count.length; i++) {
-            parrot_count[i].textContent = 0;
-        }
-        for (let i = 0; i < current_price.length; i++) {
-            current_price[i].textContent = setPrice[i];
-        }
+    for (let i = 0; i < current_price.length; i++) {
+        current_price[i].textContent = setPrice[i];
+    }
+
+    if (getCookie("user_id")) {
+        fetchSaveData();
+        document.getElementById("logout").addEventListener("click", function() {
+            autosave();
+            alert("Save data stored. Logged out.");
+        });
     }
 }
 
@@ -51,10 +50,17 @@ function spendResource(e) {
     let counter = currentParrot.getElementsByClassName("parrot-count")[0];
 
     seedCounter -= setPrice[parrotIndex];
-    updatePrice(parrotIndex);
+    setPrice[parrotIndex] = Math.round(setPrice[parrotIndex] * Math.pow(multipliers[parrotIndex], 
+                                        parseInt(parrot_count[parrotIndex].textContent) + 1));
+
+    renderPrice(setPrice, parrotIndex);
     renderSeeds();
 
-    counter.textContent++;
+    setParrotCount(parrotIndex, parseInt(counter.textContent) + 1);
+}
+
+function setParrotCount(index, count) {
+    parrots[index].getElementsByClassName("parrot-count")[0].textContent = count;
 }
 
 function renderSeeds() {
@@ -64,11 +70,13 @@ function renderSeeds() {
 
 function checkAvailability() {
     for (let i = 0; i < parrots.length; i++) {
-        if (parrots[i].classList.contains('disabled') && seedCounter >= setPrice[i]) {
-            parrots[i].classList.remove('disabled');
-            parrots[i].classList.add('enabled');
-
-            if (i < parrots.length - 1) {
+        if (parrots[i].classList.contains('disabled')) {
+            if (seedCounter >= setPrice[i]) {
+                parrots[i].classList.remove('disabled');
+                parrots[i].classList.add('enabled');
+            }
+            
+            if (i < parrots.length - 1 && !parrots[i].classList.contains('disabled')) {
                 parrots[i + 1].classList.remove('hidden');
                 parrots[i + 1].classList.add('visible');
             }
@@ -85,23 +93,8 @@ function checkAvailability() {
     }
 }
 
-function updatePrice(index) {
-    setPrice[index] = Math.round(setPrice[index] * Math.pow(multipliers[index], parseInt(parrot_count[index].textContent) + 1));
-    renderPrice(index);
-}
-
-function renderPrice(index) {
-    current_price[index].textContent = setPrice[index];
-}
-
-function update() {
-    for (let i = 0; i < parrots.length; i++) {
-        if ('disabled' in parrots[i].classList) {
-            break;
-        }
-        seedCounter += Math.round((setYield[i] * parrot_count[i].textContent));
-    }
-    renderSeeds();
+function renderPrice(array, index) {
+    current_price[index].textContent = array[index];
 }
 
 function getCookie(cname) {
@@ -119,16 +112,14 @@ function getCookie(cname) {
     return false;
 }
 
-let save_btn = document.getElementsByClassName("save-btn")[0];
-save_btn.addEventListener("click", autosave);
-
 function autosave() {
     let uid = getCookie("user_id");
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-
+            console.log(this.response);
+            showSavePopup();
         }
     }
 
@@ -148,34 +139,75 @@ function autosave() {
     xmlhttp.send();
 }
 
-let load_btn = document.getElementsByClassName("load-btn")[0];
-save_btn.addEventListener("click", loadsave);
-
-function loadsave() {
-
-}
-
-function fetchSaveData(user_id) {
+function fetchSaveData() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            try {
+            console.log(this.responseText);
+            if (this.responseText) {
                 data = JSON.parse(this.responseText);
-            }
-            catch(err) {
-                seed_counter.textContent = err;
-                data = "";
-            }
-            finally {
                 renderSaveData(data);
             }
         }
     }
 
-    xmlhttp.open("GET", "./src/loadsave.php?uid" + user_id, true);
+    let uid = getCookie("user_id");
+
+    xmlhttp.open("GET", "./src/loadsave.php?uid=" + uid, true);
     xmlhttp.send();
 }
 
 function renderSaveData(data) {
+    if (data) {
+        seedCounter = parseInt(data['seeds']);
+        renderSeeds();
+    
+        for (let i = 0; i < parrot_count.length; i++) {
+            setParrotCount(i, data['parrot_' + i]);
+            setPrice[i] = data['parrot_p_' + i];
+            renderPrice(setPrice, i);
+        }
 
+        checkDisabled();
+    }
 }
+
+function getSeeds() {
+    for (let i = 0; i < parrots.length; i++) {
+        if ('disabled' in parrots[i].classList) {
+            break;
+        }
+        else {
+            setInterval (function() {
+                console.log(Math.round((setYield[i] * parrot_count[i].textContent)));
+                seedCounter += Math.round((setYield[i] * parrot_count[i].textContent));
+                renderSeeds();
+            }, timers[i]);
+        }
+    }
+}
+
+function checkDisabled() {
+    for (let i = parrots.length - 1; i > 0; i--) {
+        if (parseInt(parrots[i].getElementsByClassName("parrot-count")[0].textContent) > 0) {
+            for (let j = 0; j <= i; j++) {
+                parrots[j].classList.remove("hidden");
+            }
+            break;
+        }
+    }
+
+    checkAvailability();
+}
+
+function showSavePopup() {
+    let popup = document.getElementById("popup");
+    popup.classList.toggle("show");
+    setTimeout(function() {
+        popup.classList.toggle("show");
+    }, 1500)
+}
+
+init();
+getSeeds();
+setInterval(autosave, 300000);

@@ -25,7 +25,7 @@
                 if (isset($_SESSION["username"])) {
                     echo '<li>Welcome, ' . $_SESSION['username'] . '</li>';
                     echo '<li><div>|</div></li>';
-                    echo '<li id="logout"><a href="./src/includes/logout.inc.php">LOG OUT</a></li>';
+                    echo '<li><a id="logout" href="./src/includes/logout.inc.php">LOG OUT</a></li>';
                 }
                 else {
                     echo '<li id="signup"><a href="./signup.php">SIGN UP</a></li>';

@@ -10,13 +10,12 @@
     <body>
         <div class="drg-cont game-screen">
             <div class="left-side">
+                <div class="popup">
+                    <span class="save-popup" id="popup">Autosave complete!</span>
+                </div> 
                 <div class="main-clickable">
                     <button id="seed-btn">Get seeds!</button>
                     <div id="seed-counter"></div>
-                    <button class="save-btn">SAVE</button>
-                    <div class="save-msg"></div>
-                    <button class="load-btn">LOAD</button>
-                    <div class="load-msg"></div>
                 </div>
             </div>
             <div class="separator"></div>

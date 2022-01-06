@@ -196,6 +196,44 @@ a, a.visited {
     display: none !important;
 }
 
-@media screen and (max-width: 600px){
-    
-}
+ .popup {
+    width: 160px;
+    position: absolute;
+    bottom: 40%;
+    display: flex;
+    cursor: pointer;
+  }
+  
+  .popup .save-popup {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .popup .save-popup::after {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+  }
+  
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+  } 

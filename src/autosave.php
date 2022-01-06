@@ -25,14 +25,14 @@
         $res = pg_execute($db_connection, "create", $insertArray);
 
         if ($res) {
-            echo "good!";
+            echo "Successful";
         }
         else {
-            echo "oh no!";
+            echo "Something went wrong";
         }
     }
     else {
-        echo "hello!";
+        echo "Not logged in";
     }
 
     function checkSaveExistence($uid, $db_connection) {
