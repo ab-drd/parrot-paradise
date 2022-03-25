@@ -3,7 +3,8 @@ const parrots = [document.getElementById('budgie'),
               document.getElementById('conure'), document.getElementById('cockatoo'),
               document.getElementById('macaw')];
 const setYield = [1, 2, 3, 5, 10, 20];
-let setPrice = [10, 50, 200, 1000, 10000, 50000];
+//let setPrice = [10, 50, 200, 1000, 10000, 50000];
+let setPrice = [1, 2, 3, 4, 5, 6];
 const multipliers = [1.2, 1.3, 1.32, 1.38, 1.45, 1.5];
 const timers = [1000, 1500, 2000, 3000, 5000, 5000];
 
@@ -77,8 +78,7 @@ function checkAvailability() {
             }
             
             if (i < parrots.length - 1 && !parrots[i].classList.contains('disabled')) {
-                parrots[i + 1].classList.remove('hidden');
-                parrots[i + 1].classList.add('visible');
+                setVisible(i+1);
             }
         }
     }
@@ -91,6 +91,11 @@ function checkAvailability() {
             parrots[i].classList.remove('no-seed');
         }
     }
+}
+
+function setVisible(index) {
+    parrots[index].classList.remove('hidden');
+    parrots[index].classList.add('visible');
 }
 
 function renderPrice(array, index) {
@@ -118,12 +123,20 @@ function autosave() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.response);
             showSavePopup();
         }
     }
 
-    let parameters = `uid=${uid}&seeds=${seed_counter.textContent}&`;
+    unlocked = parrots.length - 1;
+
+    for (let i = 0; i < parrots.length; i++) {
+        if (parrots[i].classList.contains("disabled")) {
+            unlocked = i;
+            break;
+        }
+    }
+
+    let parameters = `uid=${uid}&seeds=${seed_counter.textContent}&unlocked=${unlocked}&`;
     
     for (let i = 0; i < parrot_count.length; i++) {
         let count = parrot_count[i].textContent;
@@ -143,7 +156,6 @@ function fetchSaveData() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
             if (this.responseText) {
                 data = JSON.parse(this.responseText);
                 renderSaveData(data);
@@ -160,6 +172,8 @@ function fetchSaveData() {
 function renderSaveData(data) {
     if (data) {
         seedCounter = parseInt(data['seeds']);
+        unlocked = parseInt(data["unlocked"]);
+
         renderSeeds();
     
         for (let i = 0; i < parrot_count.length; i++) {
@@ -168,7 +182,7 @@ function renderSaveData(data) {
             renderPrice(setPrice, i);
         }
 
-        checkDisabled();
+        checkDisabled(unlocked);
     }
 }
 
@@ -179,7 +193,6 @@ function getSeeds() {
         }
         else {
             setInterval (function() {
-                console.log(Math.round((setYield[i] * parrot_count[i].textContent)));
                 seedCounter += Math.round((setYield[i] * parrot_count[i].textContent));
                 renderSeeds();
             }, timers[i]);
@@ -187,17 +200,14 @@ function getSeeds() {
     }
 }
 
-function checkDisabled() {
-    for (let i = parrots.length - 1; i > 0; i--) {
-        if (parseInt(parrots[i].getElementsByClassName("parrot-count")[0].textContent) > 0) {
-            for (let j = 0; j <= i; j++) {
-                parrots[j].classList.remove("hidden");
-            }
-            break;
-        }
+function checkDisabled(unlocked) {
+    for (let i = 0; i <= unlocked; i++) {
+        parrots[i].classList.remove("disabled");
     }
 
-    checkAvailability();
+    if (unlocked < parrots.length + 1) {
+        setVisible(unlocked + 1);
+    }
 }
 
 function showSavePopup() {

@@ -9,6 +9,7 @@
         }
 
         $seeds = $_GET["seeds"];
+        $unlocked = $_GET["unlocked"];
         $parrots = array();
         $parrotPrices = array();
 
@@ -18,9 +19,9 @@
         }
 
         $array = array_merge($parrots, $parrotPrices);
-        $insertArray = array_merge(array($user_id, $seeds), $array);
+        $insertArray = array_merge(array($user_id, $seeds, $unlocked), $array);
 
-        $query = "INSERT INTO save VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);";
+        $query = "INSERT INTO save VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15);";
         $statement = pg_prepare($db_connection, "create", $query);
         $res = pg_execute($db_connection, "create", $insertArray);
 

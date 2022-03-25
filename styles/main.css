@@ -3,12 +3,16 @@
     src: url(../src/fonts/Pixeboy-z8XGD.ttf);
 }
 
+html {
+    display: flex;
+    flex-direction: column;
+}
+
 html, body {
     font-family: pixe-boy;
     font-size: 24px;
-    width: 100%;
-    height: 100%;
     margin: auto;
+    width: 100%;
 }
 
 body {
@@ -30,30 +34,27 @@ button {
     border-radius: 2px;
 }
 
-.drg-cont {
-    margin: auto;
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-}
-
 .left-side {
     position: sticky;
     top: 70px;
+    bottom: 0;
+    width: 49.8vw;
     height: 100vh;
-    width: 49.8%;
     left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .separator {
     left: 49.8%;
-    width: 0.4%;
+    width: 0.4vw;
     background-color: rgb(255, 145, 0);
 }
 
 .right-side {
     top: 70px;
-    width: 49.8%;
+    width: 49.8vw;
     right: 0;
 }
 
@@ -75,14 +76,17 @@ a, a.visited {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    
 }
 
 .game-screen {
     margin-top: 70px;
     height: fit-content;
+    min-height: 92.5vh;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    flex-grow: 1;
 }
 
 .resource-items {
@@ -119,19 +123,13 @@ a, a.visited {
     margin: auto;
 }
 
-@media screen and (max-width: 1160px){
-    .parrot-name {
-        font-size: 1.5vw;
-    }
-}
-
 .buy-btns {
     text-align: center;
     height: 100px;
     font-size: 28px;
     width: 35%;
     display: block;
-    z-index: 1;
+
     background-color: rgba(71, 71, 71, 0.4);
     color: gray;
 }
@@ -196,15 +194,15 @@ a, a.visited {
     display: none !important;
 }
 
- .popup {
+.popup {
     width: 160px;
     position: absolute;
     bottom: 40%;
     display: flex;
     cursor: pointer;
-  }
+}
   
-  .popup .save-popup {
+.popup .save-popup {
     visibility: hidden;
     width: 160px;
     background-color: #555;
@@ -213,27 +211,73 @@ a, a.visited {
     border-radius: 6px;
     position: absolute;
     z-index: 1;
-  }
+}
   
-  .popup .save-popup::after {
+.popup .save-popup::after {
     content: "";
     position: absolute;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
-  }
+}
   
-  .popup .show {
+.popup .show {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
-  }
+}
   
-  @-webkit-keyframes fadeIn {
+@-webkit-keyframes fadeIn {
     from {opacity: 0;}
     to {opacity: 1;}
-  }
+}
   
-  @keyframes fadeIn {
+@keyframes fadeIn {
     from {opacity: 0;}
     to {opacity:1 ;}
-  } 
+}
+
+@media screen and (max-width: 1020px) {
+    .resource-items {
+        align-content: flex-start;
+        overflow: auto;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .resource-items>li {
+        padding: 0;
+        flex-direction: column;
+        align-items: center;
+        border-right: 2px solid rgb(255, 145, 0);
+        max-width: 200px;
+        justify-content: space-around;
+    }
+
+    .buy-btns {
+        font-size: 24px;
+        width: 75%;
+        height: 15%;
+        padding: 0;
+    }
+
+    .info {
+        margin: 10px 0 10px 0;
+        padding: 0;
+    }
+
+    .parrot-name {
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        margin: 10px 0 10px 0;
+        padding: 5px 0 0 0;
+    }
+
+    .parrot-imgs {
+        height: auto;
+        width: auto;
+    }
+}
